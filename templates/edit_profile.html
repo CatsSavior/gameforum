@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+</head>
+<link rel="stylesheet" href="/static/style.css">
+<body>
+<div id="navbar">
+    <ul>
+        <a href="{{ url_for('home') }}"><li>Home</li></a>
+        <a href="{{ url_for('posts') }}"><li>Forum</li></a>
+         {% if not current_user.is_authenticated %}
+        <a href="{{ url_for('auth.login') }}"><li>Log In</li></a> <a href="{{ url_for('auth.signup') }}"><li>Sign Up</li></a>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('main.profile') }}"><li>Profile</li></a>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('auth.logout') }}"><li>Log Out</li></a>
+        {% endif %}
+    </ul>
+</div>
+<div id="edit-information-container">
+    <form method="post" action="/editprofile">
+        <div class="field">
+            <input class="input-is-large" type="email" name="email" value={{ current_user.email }}>
+        </div>
+        <div class="field">
+            <input class="input-is-large" type="name" name="name" value={{ current_user.name }}>
+        </div>
+        <button class="submit-button">Save</button>
+    </form>
+</div>
+</body>
+</html>
